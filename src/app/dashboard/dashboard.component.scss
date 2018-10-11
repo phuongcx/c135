@@ -1,0 +1,73 @@
+.dashboard-header{
+    padding:18px 10px 10px 10px;
+    margin-bottom: 15px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.dashboard-header h4{
+    margin-left:10px;
+}
+.dashboard-cards{
+    display: flex;
+    padding:15px;
+    width:100%;
+    border-right:1px solid #eee;
+    font-family: 'Raleway', sans-serif;
+}
+
+.dashboard-cards i{
+    font-size: 1.5em;
+    padding:5px;
+    min-width:50px;
+    max-width:50px;
+    text-align: center;
+    min-height:50px;
+    max-height:50px;
+    border-radius: 100%;
+    color:white;
+    padding-top:10px;
+}
+
+#db-users i{
+    background:#5d2693;
+}
+#db-logs i{
+    background:#bf0955;
+}
+#db-roles i{
+    background:#159689;
+}
+#db-news i{
+    background:#a8a321;
+}
+.dashboard-cards p:nth-child(2){
+    font-weight: 300;
+    font-size: 1.5em;
+    margin-left:15px;
+}
+.dashboard-cards p:nth-child(3){
+    font-weight: bold;
+    min-width: 30px;
+    max-width: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    color:red;
+    text-align: center;
+}
+.dashboard-chart{
+    height: auto; 
+}
+.dashboard-chart h4,p{
+    margin-left:15px;
+    font-family: 'Raleway', sans-serif;
+
+}
+.dashboard-chart h4{
+    padding:10px 0;
+    border-bottom: 1px solid #eee;
+    margin-right:15px;
+}
+.progress{
+    width: 90%;
+    margin-left:15px;
+}

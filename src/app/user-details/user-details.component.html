@@ -1,0 +1,129 @@
+<div class="container-fluid m-details">
+    <i class="fas fa-chevron-circle-left float-right" title="Back to user management" routerLink="/user-main"></i>
+      <h4 class="m-title"><span id="status">User: </span> {{ userDetails?.FullName }} 
+        <i class="far fa-edit" title="Edit this user" data-target="#EditUserModal" data-toggle="modal"></i>
+      </h4>
+        <div class="info">
+        <p><span>UserName:</span> {{userDetails?.UserName}}</p>
+        <p><span>Role:</span> {{ userDetails?.RoleName }}</p>
+        <p><span>Birthday:</span> {{userDetails?.Birthdate | date: 'dd/MM/yyyy'}}</p>
+        <p><span>Gender:</span> {{ userDetails?.Gender?'Male':'Female' }}</p>
+        <p><span>Phone:</span> {{ userDetails?.Phone }}</p>
+        <p><span>Address:</span> {{ userDetails?.Address}}</p>
+        <p><span>Create Date:</span> {{userDetails?.CreateDateUser | date: 'dd/MM/yyyy hh:mm'}}</p>
+        <p><span>Modify Date:</span> {{ userDetails?.ModifyDateUser | date: 'dd/MM/yyyy hh:mm' }}</p>
+      </div>
+  </div>
+  <table *ngIf="userDetails?.LogName" class="m-shadow my-4">
+      <thead>
+          <tr>
+            <th>LogName</th>
+            <th>LogType</th>
+            <th>CreateDateLog</th>
+            <th>ModifyDateLog</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of userLog">
+          <td>{{ item.LogName }}</td>
+          <td>{{ item.LogType }}</td>
+          <td>{{ item.CreateDateLog | date: 'dd/MM/yyyy hh:mm' }}</td>
+          <td>{{ item.ModifyDateLog | date: 'dd/MM/yyyy hh:mm' }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+<!-- Modal -->
+<div class="modal fade" id="EditUserModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border-radius:5px 5px 0px 0px;background-color:#474747;color:white">
+        <h5 class="modal-title">Are you sure you want to edit profile?</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body table table-striped">
+        <form #formEdit="ngForm">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">UserName</span>
+                <div class="col-md-9">
+                  <input name="UserName" ngModel="{{userDetails?.UserName}}" class="form-control" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">FullName</span>
+                <div class="col-md-9">
+                  <input name="FullName" ngModel="{{userDetails?.FullName}}" class="form-control" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Birthday</span>
+                <div class="col-md-9">
+                  <input name="Birthdate" ngModel="{{userDetails?.Birthdate}}" class="form-control" type="datetime-local" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Gender</span>
+                <div class="col-md-9">
+                  <select name="Gender" ngModel="{{userDetails?.Gender?'Male':'Female'}}" class="form-control">
+                    <option>
+                      Male
+                    </option>
+                    <option>
+                      Female
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Phone</span>
+                <div class="col-md-9">
+                  <input name="Phone" ngModel="{{userDetails?.Phone}}" class="form-control" type="number" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Address</span>
+                <div class="col-md-9">
+                  <input name="Address" ngModel="{{userDetails?.Address}}" class="form-control" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">RoleName</span>
+                <div class="col-md-9">
+                  <select name="RoleId" ngModel="{{userDetails?.RoleName}}" class="form-control">
+                    <option value="" selected disabled hidden>Choose RoleName</option>
+                    <option *ngFor="let role of roles">
+                      {{role.RoleName}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <div class="form-actions no-color text-center">
+              <input data-dismiss="modal" class="btn btn-outline-dark" type="submit" value="Save" (click)="onSubmit(formEdit,userDetails?.UserId)" />
+              <button class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

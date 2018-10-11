@@ -1,0 +1,123 @@
+<div class="container-fluid m-details">
+  <i class="fas fa-chevron-circle-left float-right" title="Back to Log management" routerLink="/log-main"></i>
+    <h4 class="m-title"><span id="status">Title</span> {{ logDetails?.LogName }} 
+      <i class="far fa-edit" title="Edit this log" data-target="#EditLogModal" data-toggle="modal" (click)="InitalDescriptionNgModel()"></i>
+    </h4>
+      <div class="info">
+      <p><span>Create Date:</span> {{logDetails?.CreateDate | date: 'dd/MM/yyyy hh:mm'}}</p>
+      <p><span>Modify Date:</span> {{ logDetails?.ModifyDateLog | date: 'dd/MM/yyyy hh:mm' }}</p>
+      <p><span>Log Type:</span> {{ logDetails?.LogType }}</p>
+      <p><span>Status:</span> <q id="status">{{ logDetails?.Status }}</q></p>
+      <div class="desc w-100">
+          <p class="w-100 d-inline"><span>Description: </span></p>
+          <div class="d-inline" [innerHTML]="logDetails?.Description"></div>
+      </div>
+    </div>
+</div>
+<table *ngIf="userlogs?.length > 0" class="m-shadow my-4">
+    <thead>
+        <tr>
+          <th>Fullname</th>
+          <th>Username</th>
+          <th>Modified Date</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of userlogs">
+        <td>{{ item.FullName }}</td>
+        <td>{{ item.UserName }}</td>
+        <td>{{ item.ModifyDateUserLog | date: 'dd/MM/yyyy hh:mm' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+<!-- Modal -->
+<div class="modal fade" id="EditLogModal" role="dialog">
+  <div class="modal-dialog" style="max-width: 50%;">
+    <div class="modal-content">
+      <div class="modal-header" style="border-radius:5px 5px 0px 0px;background-color:#474747;color:white">
+        <h5 class="modal-title">Are you sure you want to edit log information?</h5>
+        <button type="button" class="close text-light" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <form (ngSubmit)="OnSubmit(formEditLog);" #formEditLog="ngForm">
+        <div class="modal-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="row">
+                <label class="control-label col-lg-2">Log Name</label>
+                <div class="col-lg-9">
+                  <input class="form-control" type="text" ngModel="{{ logDetails?.LogName }}" name="logName" #logName="ngModel"
+                    required maxlength="50" />
+                  <div *ngIf="(logName.errors?.maxlength || logName.errors?.required) && (logName.touched || logName.dirty)"
+                    class="alert alert-danger" role="alert">
+                    <div [hidden]="!logName.errors?.required">
+                      LogName is required
+                    </div>
+                    <div [hidden]="!logName.errors?.maxlength">
+                      LogName cannot be more than 50 characters long
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label class="control-label col-lg-2">Log Type</label>
+                <div class="col-lg-9">
+                  <select class="form-control" id="logType" ngModel="{{ logDetails?.LogType }}" name="logType" #logType="ngModel">
+                    <option value="Info">
+                      Info
+                    </option>
+                    <option value="Error">
+                      Error
+                    </option>
+                    <option value="Auto Log">
+                      Auto Log
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label class="control-label col-lg-2">Status</label>
+                <div class="col-lg-9">
+                  <select class="form-control" id="status" ngModel="{{ logDetails?.Status }}" name="status" #status="ngModel">
+                    <option value="Open">
+                      Open
+                    </option>
+                    <option value="Processing">
+                      Processing
+                    </option>
+                    <option value="Done">
+                      Done
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <label class="control-label col-lg-2">Description</label>
+                <div class="col-lg-9">
+                  <angular-editor [config]="editorConfig" [(ngModel)]="descriptionNgModel" name="description"></angular-editor>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer text-center">
+          <div class="form-actions no-color text-center">
+            <input class="btn btn-outline-dark mr-1" type="submit" value="Save" />
+            <input class="btn btn-outline-dark" data-dismiss="modal" value="Cancel" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

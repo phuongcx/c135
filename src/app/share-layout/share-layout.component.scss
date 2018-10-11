@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700');
+@media screen and (max-width: 992px) {
+.row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
+.row-offcanvas-left
+.sidebar-offcanvas {
+    left: -33%;
+}
+
+.row-offcanvas-left.active {
+    left: 33%;
+    margin-left: -6px;
+}
+
+.sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    height: 100%;
+}
+}
+
+/*
+* Off Canvas wider at sm breakpoint
+* --------------------------------------------------
+*/
+@media screen and (max-width: 34em) {
+.row-offcanvas-left
+.sidebar-offcanvas {
+    left: -45%;
+}
+
+.row-offcanvas-left.active {
+    left: 45%;
+    margin-left: -6px;
+}
+
+.sidebar-offcanvas {
+    width: 45%;
+}
+}
+
+.card {
+    overflow:hidden;
+}
+
+.sidebar-shadow{
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+    background:#fff;
+    font-family: 'Raleway', sans-serif;
+}
+.sidebar-shadow a{
+    color:black;
+    font-size:1.1em;
+}
+.sidebar-shadow a:hover{
+    color:rgb(165, 136, 136);
+}
+.sidebar-shadow li{
+    padding-top:15px;
+}
+#sidebar{
+    padding-bottom: 100%;
+}

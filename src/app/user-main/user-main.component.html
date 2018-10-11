@@ -1,0 +1,169 @@
+<div class="container-fluid">
+  <h4 class="m-title">User Management <i class="fas fa-plus-circle add" title="Add new user" data-target="#AddUserModal" data-toggle="modal"></i></h4>
+  <form (ngSubmit)="SearchUser();">
+    <mat-form-field class="example-full-width">
+      <input id="search-form" name="username" type="text" class="form-control d-inline" placeholder="Search by user name..." size="40px"
+        matInput [formControl]="myControl" [matAutocomplete]="autocomplete">
+      <mat-autocomplete #autocomplete="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOption | async" [value]="option.FullName">
+          {{ option.FullName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button id="search-button" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+  </form><br>
+  <div class="row">
+    <div [attr.id]="item.UserId" class="user col-lg-4" *ngFor="let item of users | filter: filter | paginate: { itemsPerPage: 9, currentPage: p }">
+      <div class="w-100 m-shadow">
+        <div class="head">
+          <i class="fas text-primary fa-mars" *ngIf="item.Gender==true"></i>
+          <i class="fas text-danger fa-venus" *ngIf="item.Gender==false"></i>
+          <a routerLink="/user-details/{{ item.UserId }}" id="title">{{item.FullName}}</a>
+          <p class="pl-4 text-warning">{{item.RoleName}}</p>
+        </div>
+        <div class="date">
+          <p><span class="font-weight-bold">Birthday: </span>{{ item.Birthdate | date: 'dd/MM/yyyy' }}</p>
+          <p><span class="font-weight-bold">Phone: </span>{{ item.Phone }}</p>
+          <i title="Remove this user" class="fas fa-trash-alt" (click)="getUserPicked(item.FullName,item.UserId)" data-target="#deleteModal" data-toggle="modal"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <pagination-controls class="d-flex justify-content-end" (pageChange)="p = $event"></pagination-controls>
+  <div *ngIf="logs?.length == 0">
+    <h2>Sorry No Result Found</h2>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border-radius:5px 5px 0px 0px;background-color:#474747;color:white">
+        <h5 class="modal-title ml-auto">Please enter full information of the user.</h5>
+        <button type="button" class="close text-light" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body table table-striped">
+        <form #formAdd="ngForm">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">UserName</span>
+                <div class="col-md-9">
+                  <input name="UserName" ngModel class="form-control" type="text" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Password</span>
+                <div class="col-md-9">
+                  <input name="Password" ngModel class="form-control" type="password" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">RePassword</span>
+                <div class="col-md-9">
+                  <input class="form-control" type="password" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">FullName</span>
+                <div class="col-md-9">
+                  <input name="FullName" ngModel class="form-control" type="text" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Birthday</span>
+                <div class="col-md-9">
+                  <input name="Birthdate" ngModel class="form-control" type="date" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Gender</span>
+                <div class="col-md-9">
+                  <select name="Gender" ngModel class="form-control">
+                    <option value="" selected disabled hidden>Choose Gender</option>
+                    <option>
+                      Male
+                    </option>
+                    <option>
+                      Female
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Phone</span>
+                <div class="col-md-9">
+                  <input name="Phone" ngModel class="form-control" type="number" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">Address</span>
+                <div class="col-md-9">
+                  <input name="Address" ngModel class="form-control" type="text" value="" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <span class="control-label col-md-3 my-1">RoleName</span>
+                <div class="col-md-9">
+                  <select name="RoleId" ngModel class="form-control">
+                    <option value="" selected disabled hidden>Choose RoleName</option>
+                    <option *ngFor="let role of roles">
+                      {{role.RoleName}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer text-center">
+            <div class="form-actions no-color text-center">
+              <input data-dismiss="modal" class="btn btn-outline-dark mr-1" type="submit" value="Save" (click)="onSubmit(formAdd)" />
+              <button class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{usernamePicked}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really wanna delete this user ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary-outline" (click)="DeleteUser(userIdPicked)" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

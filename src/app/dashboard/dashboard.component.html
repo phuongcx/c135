@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <!--HEADER-->
+  <div class="dashboard-header m-shadow w-100">
+    <h4>Dashboard</h4>
+  </div>
+  <!--FEATURES-->
+  <div class="dashboard-features m-shadow">
+    <div class="row ">
+      <div class="col-lg-3 col-12">
+        <div id="db-users" class="dashboard-cards" title="Number of users in database">
+          <i class="fas fa-users"></i>
+          <p>USERS</p>
+          <p>{{userCount}}</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12">
+        <div id="db-logs" class="dashboard-cards" title="Number of logs in database">
+          <i class="fas fa-book-open"></i>
+          <p>LOGS</p>
+          <p>{{logCount}}</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12">
+        <div id="db-roles" class="dashboard-cards" title="Number of roles in database">
+          <i class="fas fa-clipboard-list"></i>
+          <p>ROLES</p>
+          <p>{{roleCount}}</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12">
+        <div id="db-news" class="dashboard-cards" title="Number of today log"> 
+          <i class="far fa-calendar-check"></i>
+          <p>NEWS</p>
+          <p>{{newsCount}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!--TABLE-->
+    <div class="col-lg-9">
+      <table class="m-shadow my-4">
+        <thead>
+            <tr>
+              <th>Log Name</th>
+              <th>Created At</th>
+              <th>Modified At</th>
+              <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of LogOverview">
+            <td>{{log.LogName}}</td>
+            <td>{{log.CreateDate | date:'short'}}</td>
+            <td>{{log.ModifyDate | date:'short'}}</td>
+            <td [ngClass]="{
+              'text-primary': log.Status == 'Open',
+              'text-danger': log.Status == 'Processing',
+              'text-success': log.Status == 'Done'
+          }">{{log.Status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-3">
+      <!--Chart of log data-->
+      <div class="dashboard-chart m-shadow my-4">
+        <div class="chart-header">
+          <h4>Log Data</h4>
+        </div>
+        <p>Open</p>
+        <div class="progress my-2">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{openPercent}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': openPercent+'%'}"></div>
+          <span>{{openPercent |number}}%</span>
+        </div>
+        <p>Processing</p>
+        <div class="progress my-2">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" attr.aria-valuenow="{{processPercent}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': processPercent+'%'}"></div>
+          <span>{{processPercent|number}}%</span>
+        </div>
+        <p>Done</p>
+        <div class="progress my-2">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" attr.aria-valuenow="{{donePercent}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': donePercent+'%'}"></div>
+          <span>{{donePercent|number }}%</span>
+        </div><br>
+      </div>
+      <!--Chart of daily logs-->
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+  </div>
+</div>

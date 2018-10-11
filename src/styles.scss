@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500');
+
+i{
+    margin-right:5px;
+}
+
+body{
+    background:rgb(239, 244, 247);
+}
+
+.m-shadow{
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+    background:#fff;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+#search-form{
+    width:calc(100% - 60px);
+    display: inline-block;
+}
+
+#search-button{
+    float:right;
+    width:60px;
+}
+
+.m-title{
+    padding-top:15px;
+    padding-bottom: 15px;
+    font-weight: 300;
+    border-bottom: 1px solid #eee;
+}
+.add{
+    font-size: 1.2em;
+    color:rgb(118, 194, 108);
+    transition: all 0.2s;
+}
+.add:hover{
+    cursor: pointer;
+    color:rgb(120, 206, 108);
+}
+table{
+    width:100%;
+    font-weight: 350;
+}
+td,th{
+    border:0;
+    margin:0;
+    padding:0;
+    padding:20px;
+    border-bottom: 1px solid #eee;
+}
+.fa-edit{
+    margin-left:15px;
+}
+.fa-chevron-circle-left{
+    font-size: 2em;
+    margin-top:10px;
+    transition: all 0.3s;
+}
+.m-details i:hover{
+    color:rgb(196, 196, 196);
+    cursor: pointer;
+}
+.m-details i:active{
+    outline: none;
+}
+.m-details span{
+    font-weight: 500;
+    margin-right:10px;
+}
+

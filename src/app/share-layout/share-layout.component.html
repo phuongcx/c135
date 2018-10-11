@@ -1,0 +1,81 @@
+<!--NAVBAR-->
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark mb-3 ">
+        <div class="flex-row d-flex">
+            <button type="button" class="navbar-toggler mr-2 " data-toggle="offcanvas" title="Toggle responsive left sidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <a class="navbar-brand" *ngIf="isLoggedIn()" routerLink='/home'><i class="fas fa-address-book"></i> Log Management</a>
+                <a class="navbar-brand" *ngIf="!isLoggedIn()" routerLink='/login'><i class="fas fa-address-book"></i> Log Management</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li *ngIf="isLoggedIn()" class="nav-item">
+                    <a class="nav-link" data-toggle="collapse">Hi, {{ username }}!</a>
+                </li>
+                <li *ngIf="isLoggedIn()" class="nav-item">
+                    <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">
+                        <i class="fas fa-sign-out-alt"></i>Logout
+                    </a>
+                </li>
+                <li *ngIf="!isLoggedIn()" class="nav-item">
+                        <a class="nav-link" routerLink="/login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container-fluid" id="main">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <!--SIDEBAR-->
+            <div *ngIf="isLoggedIn()" class="col-md-3 col-lg-2 sidebar-offcanvas pl-0 sidebar-shadow" id="sidebar" role="navigation">
+                <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+                    <li class="nav-item"><a class="nav-link" routerLink="/home"><i class="far fa-eye"></i> Dashboard Page</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/log-main"><i class="fas fa-pen-fancy"></i> Logs Management</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">
+                            <i class="fas fa-desktop"></i> Administrator ▾
+                        </a>
+                        <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
+                           <li class="nav-item"><a class="nav-link" routerLink="/user-main"><i class="fas fa-users"></i> Users</a></li>
+                           <li class="nav-item"><a class="nav-link" routerLink="/role-main"><i class="fas fa-pencil-ruler"></i> Roles</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/col-->
+    
+            <div class="col main pt-5 mt-3">
+                <ng-content></ng-content>
+            </div>
+                <!--/row-->
+        </div>
+    
+    </div>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Logout</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really wanna logout ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" (click)="logout()" class="btn btn-primary-outline" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>

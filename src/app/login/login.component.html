@@ -1,0 +1,25 @@
+<div class="text-center" style="margin-top:200px;"><h1>Login</h1></div>
+<div class="">
+  <form (ngSubmit)="OnSubmit(formSignIn)" #formSignIn="ngForm" class="form-signin">
+    <input type="text" placeholder="Enter your username" ngModel name="userName" class="form-control" #username="ngModel" required>
+    <div *ngIf="(!isExistUsername || username.errors?.required) && (username.touched || username.dirty)" class="alert alert-danger" role="alert">
+      <div [hidden]="!username.errors?.required">
+        Username is required
+      </div>
+      <div *ngIf="!isExistUsername">
+        Username is incorrected
+      </div>
+    </div> 
+    <br>
+    <input type="password" placeholder="Enter your password" ngModel name="password" class="form-control" #password="ngModel" required>
+    <div *ngIf="(!isExistPassword || password.errors?.required) && (password.touched || password.dirty)" class="alert alert-danger" role="alert">
+        <div [hidden]="!password.errors?.required">
+            Password is required
+        </div>
+        <div *ngIf="!isExistPassword">
+            Password is incorrected
+        </div>
+      </div> 
+    <button [disabled]="formSignIn.invalid" class="btn btn-primary" style="margin-top: 10px; float: right;">Login</button>
+  </form>
+</div>

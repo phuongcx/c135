@@ -1,0 +1,65 @@
+<div class="container-fluid m-details">
+  <i class="fas fa-chevron-circle-left float-right" title="Back to Role management" routerLink="/role-main"></i>
+    <h4 class="m-title"><span id="status">Role: </span> {{ roleDetails?.RoleName }} 
+      <i class="far fa-edit" title="Edit this Role" data-target="#EditRoleModal" data-toggle="modal"></i>
+    </h4>
+      <div class="info">
+      <p><span>Create Date:</span> {{roleDetails?.CreateDate | date: 'dd/MM/yyyy hh:mm'}}</p>
+      <p><span>Modify Date:</span> {{ roleDetails?.ModifyDate | date: 'dd/MM/yyyy hh:mm' }}</p>
+      <p><span>Permission:</span> {{ roleDetails?.Permissions}}</p>
+      <i class="far fa-eye" title="View" [ngStyle]="{'color':CheckPermission(roleDetails?.Permissions,1)?'#d34930':'rgb(218, 218, 218)'}"></i> 
+      <i class="fas fa-plus-square" title="Create" [ngStyle]="{'color':CheckPermission(roleDetails?.Permissions,2)?'#d34930':'rgb(218, 218, 218)'}"></i>
+      <i class="fas fa-user-edit" title="Modify" [ngStyle]="{'color':CheckPermission(roleDetails?.Permissions,4)?'#d34930':'rgb(218, 218, 218)'}"></i>
+    </div>
+</div>
+<table *ngIf="roleDetails?.FullName" class="m-shadow my-4">
+    <thead>
+        <tr>
+          <th>Username</th>
+          <th>FullName</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of userRoles">
+        <td>{{ item.UserName }}</td>
+        <td>{{ item.FullName }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+<!-- Modal -->
+<div class="modal fade" id="EditRoleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="border-radius:5px 5px 0px 0px;background-color:#474747;color:white">
+          <h5 class="modal-title">Are you sure you want to edit this role?</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+        <div class="modal-body table table-striped">
+          <form #formEditRole="ngForm">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <div class="row">
+                  <span class="control-label col-md-3 my-1">Permissions</span>
+                  <div class="col-md-9" id="checkboxes">
+                    <input type="checkbox" name='1' [checked]="CheckPermission(roleDetails?.Permissions,1)"> View
+                    <input type="checkbox" name='2' [checked]="CheckPermission(roleDetails?.Permissions,2)"> Create
+                    <input type="checkbox" name='4' [checked]="CheckPermission(roleDetails?.Permissions,4)"> Modify
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer text-center">
+              <div class="form-actions no-color text-center">
+                <input class="btn btn-outline-dark" type="submit" value="Save" (click)="onSubmit(formEditRole,roleDetails?.RoleId)" />
+                <button class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
